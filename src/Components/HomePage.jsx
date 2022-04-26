@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPetCenterData, handlePageClick } from "../Redux/Petcenter/action";
 import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 import { Grid, GridItem } from "@chakra-ui/react";
@@ -35,7 +36,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-export const ShowEntity = () => {
+export const HomePage = () => {
   const { petcenter, loading, error, totalPages, onepage } = useSelector(
     (store) => store.petcenter
   );
@@ -43,11 +44,11 @@ export const ShowEntity = () => {
   const [query, setQuery] = useState("");
   const [verify, setVerify] = useState("");
   const dispatch = useDispatch();
-  console.log(petcenter);
+  // console.log(petcenter);
 
   useEffect(() => {
+    handlePage();
     // handlePageClick()
-    // handlePage();
     getData();
   }, []);
 
@@ -55,10 +56,10 @@ export const ShowEntity = () => {
     dispatch(getPetCenterData());
   };
 
-  // const handlePage = () => {
-  //   dispatch(handlePageClick());
-  //   getData(onepage);
-  // };
+  const handlePage = () => {
+    dispatch(handlePageClick(onepage));
+    dispatch(getPetCenterData(onepage));
+  };
 
   const handleSort = (parameter, value) => {
     setFilterState({ parameter: parameter, value: value });
@@ -159,6 +160,7 @@ export const ShowEntity = () => {
               <Th>Cost per day</Th>
               <Th>Verified</Th>
               <Th>Rating</Th>
+              <Th>View</Th>
             </Tr>
           </Thead>
 
@@ -201,6 +203,8 @@ export const ShowEntity = () => {
                     <Td>{e.costPerDay}</Td>
                     <Td>{e.verified}</Td>
                     <Td>{e.Rating}</Td>
+                    <Td><Link to={`/petcenter/${e._id}`}>View</Link></Td>
+                    
                   </Tr>
                 );
               })}
@@ -211,7 +215,7 @@ export const ShowEntity = () => {
           previousLabel={"previous"}
           nextLabel={"next"}
           pageCount={totalPages}
-          onPageChange={handlePageClick}
+          onPageChange={handlePage}
           containerClassName={"pagination justify-content-center"}
           pageClassName={"page-item"}
           pageLinkClassName={"page-link"}

@@ -19,11 +19,11 @@ const theme = extendTheme({ colors });
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <BrowserRouter>
-        <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme}>
+        <BrowserRouter>
           <App />
-        </ChakraProvider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </ChakraProvider>
     </ReduxProvider>
   </React.StrictMode>
 );

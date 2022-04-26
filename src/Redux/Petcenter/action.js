@@ -37,6 +37,6 @@ export const getPetCenterData = (currentPage) => async (dispatch) => {
 export const handlePageClick = (page) => (dispatch) => {
   let currentPage = page.selected + 1;
   console.log('currentPage:', currentPage);
-  // dispatch(getPage(currentPage));
+  dispatch(getPage(currentPage));
   getPetCenterData(currentPage);
 };
